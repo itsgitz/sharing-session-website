@@ -15,4 +15,15 @@ jobs:
           known_hosts: ${{ env.SSH_KNOWN_HOSTS }}
       - run: echo "Sharing session!"
       - run: whoami
+      - run: pwd
       - run: ssh deploy@sharing-session.itsgitz.my.id "lsb_release -a"
+
+  # upload:
+  #   name: Upload my website to my server
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: shimataro/ssh-key-action@v2
+  #       with:
+  #         key: ${{ env.SSH_PRIVATE_KEY }}
+  #         known_hosts: ${{ env.SSH_KNOWN_HOSTS }} 
+  #     - uses: actions/checkout@v3
