@@ -27,7 +27,7 @@ jobs:
           key: ${{ env.SSH_PRIVATE_KEY }}
           known_hosts: ${{ env.SSH_KNOWN_HOSTS }} 
       - uses: actions/checkout@v3
-      - run: ssh deploy@sharing-session.itsgitz.my.id "sudo chmod 777 -rf /var/www/html/" 
+      - run: ssh deploy@sharing-session.itsgitz.my.id "sudo chmod 777 -Rf /var/www/html/" 
       - run: rsync -arp index.html deploy@sharing-session.itsgitz.my.id:/var/www/html/
       - run: ssh deploy@sharing-session.itsgitz.my.id "sudo nginx -t" 
       - run: ssh deploy@sharing-session.itsgitz.my.id "sudo systemctl restart nginx"
