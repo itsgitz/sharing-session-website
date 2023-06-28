@@ -18,12 +18,15 @@ jobs:
       - run: pwd
       - run: ssh deploy@sharing-session.itsgitz.my.id "lsb_release -a"
 
-  # upload:
-  #   name: Upload my website to my server
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: shimataro/ssh-key-action@v2
-  #       with:
-  #         key: ${{ env.SSH_PRIVATE_KEY }}
-  #         known_hosts: ${{ env.SSH_KNOWN_HOSTS }} 
-  #     - uses: actions/checkout@v3
+  upload:
+    name: Upload my website to my server
+    runs-on: ubuntu-latest
+    steps:
+      - uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ env.SSH_PRIVATE_KEY }}
+          known_hosts: ${{ env.SSH_KNOWN_HOSTS }} 
+      - uses: actions/checkout@v3
+      - run: rsync -arp index.html deploy@sharing-session.itsgitz.my.id:/var/www/html/
+      - run: ssh deploy@sharing-session.itsgitz.my.id "sudo nginx -t" 
+      - run: ssh deploy@sharing-session.itsgitz.my.id "sudo systemctl restart nginx"
