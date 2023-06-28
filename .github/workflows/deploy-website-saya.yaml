@@ -1,10 +1,18 @@
 # Minimum GitHub Actions configuration
 name: Sharing Session
 on: [push]
+env: # env variable for fetch our GitHub Actions secrets
+  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+  SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
 jobs:
   test:
-    name: Test Github Actions
+    name: Test SSH Connection to My VM
     runs-on: ubuntu-latest # use GitHub shared runner
     steps:
+      - uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ env.SSH_PRIVATE_KEY }}
+          known_hosts: ${{ env.SSH_KNOWN_HOSTS }}
       - run: echo "Sharing session!"
       - run: whoami
+      - run: ssh deploy@sharing-session.itsgitz.my.id "lsb_release -a"
