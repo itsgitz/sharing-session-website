@@ -1,0 +1,10 @@
+# Minimum GitHub Actions configuration
+name: Sharing Session
+on: [push]
+jobs:
+  test:
+    name: Test Github Actions
+    runs-on: ubuntu-latest # use GitHub shared runner
+    steps:
+      - run: echo "Sharing session!"
+      - run: whoami
