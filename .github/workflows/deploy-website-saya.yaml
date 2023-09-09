@@ -19,6 +19,7 @@ jobs:
       - run: ssh deploy@sharing-session.itsgitz.my.id "lsb_release -a"
 
   upload:
+    needs: [test]
     name: Upload my website to my server
     runs-on: ubuntu-latest
     steps:
